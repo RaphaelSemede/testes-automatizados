@@ -29,7 +29,7 @@ public class CadastroEntregasService {
             .excludeFieldsWithoutExposeAnnotation()
             .create();
     public Response response;
-    String baseUrl = "http://localhost:8080";
+    String baseUrl = "https://entregas-dzerb4b2e4dydaht.chilecentral-01.azurewebsites.net";
     String idDelivery;
     String schemasPath = "src/test/resources/schemas/";
     JSONObject jsonSchema;
