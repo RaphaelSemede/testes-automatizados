@@ -29,7 +29,7 @@ public class UsuarioService {
             .excludeFieldsWithoutExposeAnnotation()
             .create();
     public Response response;
-    String baseUrl = "http://localhost:8080";
+    String baseUrl = "https://ecocycle-api-h9fwcsf8exb7h9ed.chilecentral-01.azurewebsites.net/";
     String schemasPath = "src/test/resources/schemas/";
     JSONObject jsonSchema;
     @Setter
