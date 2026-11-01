@@ -37,6 +37,23 @@ public class UsuarioService {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
+
+    private String getAuthUser() {
+        String envUser = System.getenv("API_AUTH_USER");
+        if (envUser == null || envUser.isEmpty()) {
+            envUser = System.getProperty("API_AUTH_USER");
+        }
+        return (envUser != null && !envUser.isEmpty()) ? envUser : "user";
+    }
+
+    private String getAuthPassword() {
+        String envPass = System.getenv("API_AUTH_PASS");
+        if (envPass == null || envPass.isEmpty()) {
+            envPass = System.getProperty("API_AUTH_PASS");
+        }
+        return (envPass != null && !envPass.isEmpty()) ? envPass : "13a3721f-0be1-4382-97e5-cad19c88c644";
+    }
+
     public void setFieldsUsuario(String field, String value) {
         switch(field){
             case "nome" -> usuarioModel.setNome(value);
@@ -51,7 +68,7 @@ public class UsuarioService {
         String url = baseUrl + endPoint;
         String bodyToSend = gson.toJson(usuarioModel);
         response = given()
-                .auth().basic("user", "13a3721f-0be1-4382-97e5-cad19c88c644")
+                .auth().basic(getAuthUser(), getAuthPassword())
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(bodyToSend)
@@ -69,7 +86,7 @@ public class UsuarioService {
     public void deleteUsuario(String endPoint) {
         String url = baseUrl + endPoint + "/" + idUsuario;
         response = given()
-                .auth().basic("user", "13a3721f-0be1-4382-97e5-cad19c88c644")
+                .auth().basic(getAuthUser(), getAuthPassword())
                 .accept(ContentType.JSON)
                 .when()
                 .delete(url)
