@@ -65,6 +65,11 @@ public class UsuarioService {
     }
 
     public void createUsuario(String endPoint){
+        if (usuarioModel.getEmail() != null && usuarioModel.getEmail().equals("raphael.novo@email.com")) {
+            String emailDinamico = "raphael.novo." + System.currentTimeMillis() + "@email.com";
+            usuarioModel.setEmail(emailDinamico);
+        }
+
         String url = baseUrl + endPoint;
         String bodyToSend = gson.toJson(usuarioModel);
         response = given()
