@@ -19,13 +19,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.SecureRandom;
 import java.util.Set;
+import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 
 public class UsuarioService {
-    final UsuarioModel usuarioModel = new UsuarioModel();
+    UsuarioModel usuarioModel = new UsuarioModel();
     public final Gson gson = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
             .create();
@@ -66,10 +66,10 @@ public class UsuarioService {
     }
 
     public void createUsuario(String endPoint){
-        SecureRandom random = new SecureRandom();
-        long numero = random.nextLong(1_000_000_000L, 9_999_999_999L);
         if (usuarioModel.getEmail() != null && usuarioModel.getEmail().equals("raphael.novo@email.com")) {
-            String emailDinamico = "raphael.novo." + numero + "@email.com";
+            String emailDinamico = "raphael.novo." +
+                    UUID.randomUUID().toString().replace("-", "").substring(0, 8) +
+                    "@email.com";
             usuarioModel.setEmail(emailDinamico);
         }
 
