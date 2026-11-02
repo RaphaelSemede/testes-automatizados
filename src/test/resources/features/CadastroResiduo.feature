@@ -1,4 +1,5 @@
 # language: pt
+
 Funcionalidade: Cadastro de Resíduos
   Como usuário da API
   Quero cadastrar um novo resíduo no sistema
@@ -11,10 +12,11 @@ Funcionalidade: Cadastro de Resíduos
       | peso         | 15.50               |
       | dataRegistro | 2026-11-01T10:00:00 |
       | statusColeta | PENDENTE            |
-      | usuarioId    | 3                   |
+      | usuarioId    | 2                   |
     Quando eu enviar a requisição para o endpoint "/residuos" de cadastro de resíduos
     Então o status code da resposta de resíduos deve ser 201
 
+  @padrão
   Cenário: Cadastro de resíduo sem sucesso por usuário inexistente
     Dado que eu tenha os seguintes dados do resíduo:
       | campo        | valor               |

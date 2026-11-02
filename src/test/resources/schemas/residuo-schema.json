@@ -1,0 +1,118 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/object1793581122.json",
+  "title": "Root",
+  "type": "object",
+  "required": [
+    "id",
+    "tipo",
+    "peso",
+    "dataRegistro",
+    "statusColeta",
+    "usuario"
+  ],
+  "properties": {
+    "id": {
+      "$id": "#root/id",
+      "title": "Id",
+      "type": "integer",
+      "examples": [
+        1
+      ],
+      "default": 0
+    },
+    "tipo": {
+      "$id": "#root/tipo",
+      "title": "Tipo",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "Garrafa PET"
+      ],
+      "pattern": "^.*$"
+    },
+    "peso": {
+      "$id": "#root/peso",
+      "title": "Peso",
+      "type": "number",
+      "examples": [
+        2.5
+      ],
+      "default": 0.0
+    },
+    "dataRegistro": {
+      "$id": "#root/dataRegistro",
+      "title": "Dataregistro",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "2026-11-02T00:42:25.204691"
+      ],
+      "pattern": "^.*$"
+    },
+    "statusColeta": {
+      "$id": "#root/statusColeta",
+      "title": "Statuscoleta",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "PENDENTE"
+      ],
+      "pattern": "^.*$"
+    },
+    "usuario": {
+      "$id": "#root/usuario",
+      "title": "Usuario",
+      "type": "object",
+      "required": [
+        "id",
+        "nome",
+        "email",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "$id": "#root/usuario/id",
+          "title": "Id",
+          "type": "integer",
+          "examples": [
+            1
+          ],
+          "default": 0
+        },
+        "nome": {
+          "$id": "#root/usuario/nome",
+          "title": "Nome",
+          "type": "string",
+          "default": "",
+          "examples": [
+            "Raphael Semede"
+          ],
+          "pattern": "^.*$"
+        },
+        "email": {
+          "$id": "#root/usuario/email",
+          "title": "Email",
+          "type": "string",
+          "default": "",
+          "examples": [
+            "raphael@email.com"
+          ],
+          "pattern": "^.*$"
+        },
+        "role": {
+          "$id": "#root/usuario/role",
+          "title": "Role",
+          "type": "string",
+          "default": "",
+          "examples": [
+            "ADMIN"
+          ],
+          "pattern": "^.*$"
+        }
+      }
+    }
+
+  }
+}

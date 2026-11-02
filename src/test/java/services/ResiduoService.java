@@ -1,14 +1,27 @@
 package services;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.networknt.schema.JsonSchema;
+import com.networknt.schema.JsonSchemaFactory;
+import com.networknt.schema.SpecVersion;
+import com.networknt.schema.ValidationMessage;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.Setter;
 import model.ResiduoModel;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 
@@ -19,6 +32,10 @@ public class ResiduoService {
             .create();
     public Response response;
     String baseUrl = "https://ecocycle-api-h9fwcsf8exb7h9ed.chilecentral-01.azurewebsites.net";
+    String schemasPath = "src/test/resources/schemas/";
+    JSONObject jsonSchema;
+    @Setter
+    String idResiduo;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -63,4 +80,52 @@ public class ResiduoService {
                 .extract()
                 .response();
     }
+
+    public void retrieveIdResiduo(){
+        idResiduo = response.jsonPath().getString("id");
+    }
+
+    public void deleteResiduo(String endPoint) {
+        String url = baseUrl + endPoint + "/" + idResiduo;
+        response = given()
+                .auth().basic(getAuthUser(), getAuthPassword())
+                .accept(ContentType.JSON)
+                .when()
+                .delete(url)
+                .then()
+                .extract()
+                .response();
+    }
+
+    private JSONObject loadJsonFromFile(String filePath) throws IOException {
+        try (InputStream inputStream = Files.newInputStream(Paths.get(filePath))) {
+            JSONTokener tokener = new JSONTokener(inputStream);
+            return new JSONObject(tokener);
+        }
+    }
+
+    public void setContract(String contract) throws IOException {
+        switch (contract) {
+            case "Cadastro de Resíduo bem sucedido", "residuo-schema.json" ->
+                    jsonSchema = loadJsonFromFile(schemasPath + "residuo-schema.json");
+            default -> throw new IllegalStateException("Unexpected contract: " + contract);
+        }
+    }
+
+    public Set<ValidationMessage> validateResponseAgainstSchema() throws IOException {
+
+
+        JSONObject jsonResponse = new JSONObject(response.getBody().asString());
+
+        JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V4);
+        JsonSchema schema = schemaFactory.getSchema(jsonSchema.toString());
+
+        JsonNode jsonResponseNode = mapper.readTree(jsonResponse.toString());
+
+        Set<ValidationMessage> schemaValidationErrors = schema.validate(jsonResponseNode);
+
+        return schemaValidationErrors;
+
+    }
+
 }
