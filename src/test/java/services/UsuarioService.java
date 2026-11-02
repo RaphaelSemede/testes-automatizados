@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.SecureRandom;
 import java.util.Set;
 
 import static io.restassured.RestAssured.given;
@@ -65,8 +66,10 @@ public class UsuarioService {
     }
 
     public void createUsuario(String endPoint){
+        SecureRandom random = new SecureRandom();
+        long numero = random.nextLong(1_000_000_000L, 9_999_999_999L);
         if (usuarioModel.getEmail() != null && usuarioModel.getEmail().equals("raphael.novo@email.com")) {
-            String emailDinamico = "raphael.novo." + System.currentTimeMillis() + "@email.com";
+            String emailDinamico = "raphael.novo." + numero + "@email.com";
             usuarioModel.setEmail(emailDinamico);
         }
 
