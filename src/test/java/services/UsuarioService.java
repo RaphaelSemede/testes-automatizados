@@ -26,6 +26,9 @@ import static io.restassured.RestAssured.given;
 
 public class UsuarioService {
     UsuarioModel usuarioModel = new UsuarioModel();
+    public void reset() {
+        usuarioModel = new UsuarioModel();
+    }
     public final Gson gson = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
             .create();

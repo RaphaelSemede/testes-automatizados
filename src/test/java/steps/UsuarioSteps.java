@@ -22,7 +22,8 @@ public class UsuarioSteps {
 
     @Dado("que eu tenha os seguintes dados do usuário:")
     public void queEuTenhaOsSeguintesDadosDoUsuário(List<Map<String, String>> rows) {
-        for(Map<String, String> columns : rows){
+        usuarioService.reset(); // ← recria o model limpo
+        for (Map<String, String> columns : rows) {
             usuarioService.setFieldsUsuario(columns.get("campo"), columns.get("valor"));
         }
     }

@@ -8,11 +8,11 @@ Funcionalidade: Gestão de Usuários e Validação de Contratos
 
   Cenário: Cadastro bem-sucedido com validação de contrato
     Dado que eu tenha os seguintes dados do usuário:
-      | campo | valor                      |
-      | nome  | Raphael Semede             |
-      | email | raphael.contrato@xmail.com |
-      | senha | 123456                     |
-      | role  | ADMIN                      |
+      | campo | valor                  |
+      | nome  | Raphael Semede         |
+      | email | raphael.novo@email.com |
+      | senha | 123456                 |
+      | role  | ADMIN                  |
     Quando eu enviar a requisição para o endpoint "/usuarios" de cadastro de usuários
     Então o status code da resposta deve ser 201
     E a resposta deve estar em conformidade com o contrato "usuario-schema.json"
