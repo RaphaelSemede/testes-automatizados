@@ -1,7 +1,6 @@
 package steps;
 
 import com.networknt.schema.ValidationMessage;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Então;
